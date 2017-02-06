@@ -1,2 +1,2 @@
 # blegw
-Gateway Bluetooth LE->MQTT (now support only xiaomi scale and no mqtt :-D).
+Gateway Bluetooth LE->MQTT (now support only xiaomi scale and didn't support mqtt :-D).
