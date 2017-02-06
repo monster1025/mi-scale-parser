@@ -1,0 +1,41 @@
+// Available variables which can be used inside of strings.
+// ${workspaceRoot}: the root folder of the team
+// ${file}: the current opened file
+// ${fileBasename}: the current opened file's basename
+// ${fileDirname}: the current opened file's dirname
+// ${fileExtname}: the current opened file's extension
+// ${cwd}: the current working directory of the spawned process
+
+{
+    "version": "0.1.0",
+	// The command is tsc. Assumes that tsc has been installed using npm install -g typescript
+	"command": "go",
+
+	// The command is a shell script
+	"isShellCommand": true,
+
+	// Show the output window only if unrecognized errors occur.
+	"showOutput": "always",
+
+    "tasks": [
+		{
+			// TS build command is local.
+			"taskName": "build",
+			// Make this the default build command.
+			"isBuildCommand": true,
+			// Show the output window only if unrecognized errors occur.
+			"showOutput": "always",
+        	//"args": ["-o", "dict", "-v", "${workspaceRoot}/main.go"]
+            "args": ["-v"]
+		},
+		{
+			// TS build command is local.
+			"taskName": "run",
+			// Make this the default build command.
+			"isTestCommand": true,
+			// Show the output window only if unrecognized errors occur.
+			"showOutput": "always",
+        	"args": ["-v", "${workspaceRoot}/main.go"]
+		}
+	]
+}
