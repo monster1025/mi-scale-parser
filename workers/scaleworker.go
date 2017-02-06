@@ -40,14 +40,6 @@ func (s Scale) OnConnect(p gatt.Peripheral, err error) error {
 		return nil
 	}
 
-	fmt.Println("Connected")
-	defer p.Device().CancelConnection(p)
-
-	if err := p.SetMTU(500); err != nil {
-		fmt.Printf("Failed to set MTU, err: %s\n", err)
-	}
-	fmt.Printf("Set mtu done.\n")
-
 	// Discovery services
 	services, err := p.DiscoverServices(nil)
 	fmt.Printf("Services: %v+", services)
