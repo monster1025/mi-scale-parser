@@ -6,8 +6,6 @@ Project based on openScale (https://github.com/oliexdev/openScale/) code.
 # License
 
 Project is licensed under the GPL v3, see LICENSE file for full notice.
-
-    Copyright (C) 2014  olie.xdev <olie.xdev@googlemail.com>
     
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
