@@ -1,7 +1,10 @@
 package main
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"strings"
 	"sync"
@@ -12,6 +15,8 @@ import (
 )
 
 var done = make(chan struct{})
+var weights []*Weight
+var isdone bool
 
 func onStateChanged(d gatt.Device, s gatt.State) {
 	fmt.Println("State:", s)
@@ -74,7 +79,6 @@ func onPeriphConnected(p gatt.Peripheral, err error) {
 		fmt.Printf("Failed to discover services, err: %s\n", err)
 		return
 	}
-
 	service := getServiceByUUID(WEIGHT_MEASUREMENT_SERVICE, services)
 	fmt.Printf("Service Found %s\n", service.Name())
 	chars, _ := p.DiscoverCharacteristics(nil, service)
@@ -94,17 +98,26 @@ func onPeriphConnected(p gatt.Peripheral, err error) {
 	descriptor := getDescriptorByUUID(WEIGHT_MEASUREMENT_CONFIG, descriptors)
 	p.WriteDescriptor(descriptor, []byte{0x02, 0x00})
 
-	isdone := false
+	isdone = false
 	p.SetNotifyValue(histChar, func(c *gatt.Characteristic, b []byte, e error) {
 		log.Printf("Got back from %s: %#x\n", c.UUID(), b)
 		//weight :=
 		if len(b) == 20 {
 			first := b[0:10]
-			parseData(first)
+			weight := parseData(first)
+			if weight != nil {
+				weights = append(weights, weight)
+			}
 			second := b[10:20]
-			parseData(second)
+			weight = parseData(second)
+			if weight != nil {
+				weights = append(weights, weight)
+			}
 		} else if len(b) == 10 {
-			parseData(b)
+			weight := parseData(b)
+			if weight != nil {
+				weights = append(weights, weight)
+			}
 		} else if (len(b) == 1) && b[0] == 0x3 {
 			isdone = true
 			return
@@ -174,5 +187,17 @@ func main() {
 
 	d.Init(onStateChanged)
 	<-done
-	fmt.Println("Done")
+	if isdone {
+		writeToFile()
+	}
+}
+
+func writeToFile() {
+	jsonbytes, err := json.Marshal(weights)
+	if err != nil {
+		panic(err)
+	}
+	var out bytes.Buffer
+	err = json.Indent(&out, jsonbytes, "", "\t")
+	ioutil.WriteFile("weights.json", out.Bytes(), 0644)
 }

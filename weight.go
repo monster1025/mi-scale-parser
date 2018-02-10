@@ -5,6 +5,6 @@ import (
 )
 
 type Weight struct {
-	Time   time.Time
-	Weight float64
+	Time   time.Time `json:"datetime"`
+	Weight float64   `json:"weight"`
 }
