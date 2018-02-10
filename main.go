@@ -89,8 +89,6 @@ func onPeriphConnected(p gatt.Peripheral, err error) {
 	// 	fmt.Printf("Failed to read characteristic, err: %s\n", err)
 	// 	return
 	// }
-	// parseData(b)
-	// return
 	// fmt.Printf("    value         %x | %q\n", b, b)
 
 	histChar := getCharByUUID(WEIGHT_MEASUREMENT_HISTORY_CHARACTERISTIC, chars)

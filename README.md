@@ -1,10 +1,8 @@
 # blegw
-Gateway Bluetooth LE->MQTT (now support only xiaomi scale and didn't support mqtt :-D).
-
+This app will retrieve Xiaomi Smart Scale data and save it to weights.json.
 Project based on openScale (https://github.com/oliexdev/openScale/) code.
 
 # License
-
 Project is licensed under the GPL v3, see LICENSE file for full notice.
     
     This program is free software: you can redistribute it and/or modify
