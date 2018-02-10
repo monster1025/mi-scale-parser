@@ -14,14 +14,14 @@ func parseData(weightBytes []byte) *Weight {
 	isLBSUnit := isBitSet(ctrlByte, 0)
 	isCattyUnit := isBitSet(ctrlByte, 4)
 
-	// fmt.Printf("IsWeightRemoved: %v\n", isWeightRemoved)
+	// fmt.Printf("IsWeightRemoved: %v\n", isBitSet(ctrlByte, 7))
 	// fmt.Printf("6 LSB Unknown: %v\n", isBitSet(ctrlByte, 6))
-	// fmt.Printf("IsStabilized: %v\n", isStabilized)
-	// fmt.Printf("IsCattyOrKg: %v\n", isCattyUnit)
-	// fmt.Printf("3 LSB Unknown: %v\n", isBitSet(ctrlByte, 3))
-	// fmt.Printf("2 LSB Unknown: %v\n", isBitSet(ctrlByte, 2))
-	// fmt.Printf("1 LSB Unknown: %v\n", isBitSet(ctrlByte, 1))
-	// fmt.Printf("IsLBS: %v\n", isLBSUnit)
+	// fmt.Printf("IsStabilized: %v\n", isBitSet(ctrlByte, 5))
+	// fmt.Printf("IsCattyOrKg: %v\n", isBitSet(ctrlByte, 4))
+	// fmt.Printf("BMI and Height present: %v\n", isBitSet(ctrlByte, 3))
+	// fmt.Printf("User ID present: %v\n", isBitSet(ctrlByte, 2))
+	// fmt.Printf("Time stamp present: %v\n", isBitSet(ctrlByte, 1))
+	// fmt.Printf("IsLBS: %v\n", isBitSet(ctrlByte, 0))
 
 	// // Only if the value is stabilized and the weight is *not* removed, the date is valid
 	if isStabilized && !isWeightRemoved {
